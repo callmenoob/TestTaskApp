@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TestTaskApp.DataBase;
+using TestTaskApp.DataBase.Commands;
 
 namespace TestTaskApp
 {
@@ -35,6 +36,7 @@ namespace TestTaskApp
 
             services.AddScoped<ITestBase, TestBase>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddScoped<ICommand, Insert>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,7 +60,7 @@ namespace TestTaskApp
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Movies}/{action=Index}/{id?}");
             });
         }
     }

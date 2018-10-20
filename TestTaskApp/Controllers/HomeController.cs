@@ -6,17 +6,21 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using TestTaskApp.DataBase;
+using TestTaskApp.DataBase.Commands;
 using TestTaskApp.Models;
 
 namespace TestTaskApp.Controllers
 {
     public class HomeController : Controller
     {
-        private ITestBase _baseClass;
-
+        private ITestBase _testBase;
         public HomeController(ITestBase testBase)
         {
-            _baseClass = testBase;
+            _testBase = testBase;
+            string sql = "INSERT INTO MOVIE VALUES (@NAME)";
+            var insertcmd = new Insert(_testBase);
+            insertcmd.Execute<Movie>(sql, new Movie());
+
         }
 
         public IActionResult Index()

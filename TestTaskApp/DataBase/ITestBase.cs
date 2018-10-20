@@ -7,6 +7,6 @@ namespace TestTaskApp.DataBase
 {
     public interface ITestBase
     {
-        void DONothing();
+        IEnumerable<T> Execute<T>(string command, T @object);
     }
 }
