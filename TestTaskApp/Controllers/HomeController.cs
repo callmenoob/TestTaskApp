@@ -4,14 +4,24 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
+using TestTaskApp.DataBase;
 using TestTaskApp.Models;
 
 namespace TestTaskApp.Controllers
 {
     public class HomeController : Controller
     {
+        private ITestBase _baseClass;
+
+        public HomeController(ITestBase testBase)
+        {
+            _baseClass = testBase;
+        }
+
         public IActionResult Index()
         {
+            
             return View();
         }
 

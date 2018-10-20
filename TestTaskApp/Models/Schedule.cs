@@ -9,9 +9,9 @@ namespace TestTaskApp.Models
     public class Schedule
     {
         [Required]
-        public Cinema Cinemas { get; set; }
+        public Cinema Cinema { get; set; }
         [Required]
-        public Movie Movies { get; set; }
+        public Movie Movie { get; set; }
         [Required]
         public DateTime ScheduleDate { get; set;}
         [Required]

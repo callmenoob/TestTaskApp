@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TestTaskApp.DataBase;
 
 namespace TestTaskApp
 {
@@ -32,6 +33,7 @@ namespace TestTaskApp
             });
 
 
+            services.AddScoped<ITestBase, TestBase>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
