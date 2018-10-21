@@ -58,11 +58,11 @@ namespace TestTaskApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Delete([Bind("ID")]Cinema movie)
+        public IActionResult Delete(int id)
         {
-            sqlcmd = "Delete from Place where ID = @ID";
+            sqlcmd = $"Delete from Place where ID = {id}";
             var cmd = new Insert(_testBase);
-            cmd.Execute<Cinema>(sqlcmd, movie);
+            cmd.Execute<Cinema>(sqlcmd, new Cinema());
             return RedirectToAction(nameof(Index));
         }
     }
