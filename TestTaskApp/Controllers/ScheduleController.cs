@@ -3,9 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using TestTaskApp.DataBase;
-using TestTaskApp.DataBase.Commands;
 using TestTaskApp.Models;
 
 namespace TestTaskApp.Controllers
@@ -22,22 +20,20 @@ namespace TestTaskApp.Controllers
         public IActionResult Index()
         {
             sqlcmd = "SELECT * FROM Schedule";
-            var insertcmd = new Insert(_testBase);
-            var result = insertcmd.Execute<Schedule>(sqlcmd, new Schedule());
+            var result = _testBase.Execute<Schedule>(sqlcmd, new Schedule());
             return View(result);
         }
 
         public IActionResult Edit(int id)
         {
             sqlcmd = $"Select * from Schedule where SessionID = {id}";
-            var cmd = new Insert(_testBase);
-            var result = cmd.Execute<Schedule>(sqlcmd, new Schedule());
-            sqlcmd = "SELECT * FROM MOVIE ";
-            var insertcmd = new Insert(_testBase);
-            var Movies = insertcmd.Execute<Movie>(sqlcmd, new Movie());
-            sqlcmd = "SELECT * FROM Place ";
+            var result = _testBase.Execute<Schedule>(sqlcmd, new Schedule());
 
-            var Cinemas = insertcmd.Execute<Cinema>(sqlcmd, new Cinema());
+            sqlcmd = "SELECT * FROM MOVIE ";
+            var Movies = _testBase.Execute<Movie>(sqlcmd, new Movie());
+
+            sqlcmd = "SELECT * FROM Place ";
+            var Cinemas = _testBase.Execute<Cinema>(sqlcmd, new Cinema());
 
             ViewBag.Movies = new SelectList(Movies, "ID", "Name", result.FirstOrDefault().MovieName);
             ViewBag.Cinemas = new SelectList(Cinemas, "ID", "Name", result.FirstOrDefault().CinemaName);
@@ -58,19 +54,19 @@ namespace TestTaskApp.Controllers
             sqlcmd = $"Update Session set MovieID = @MovieID," +
                 $" CinemaID = @CinemaID," +
                 $" SessionDate = @ScheduleDate where SessionID = {id}";
-            var cmd = new Insert(_testBase);
-            cmd.Execute<PostSchedule>(sqlcmd, post);
+
+            _testBase.Execute<PostSchedule>(sqlcmd, post);
+
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Post()
         {
             sqlcmd = "SELECT * FROM MOVIE ";
-            var insertcmd = new Insert(_testBase);
-            var Movies = insertcmd.Execute<Movie>(sqlcmd, new Movie());
-            sqlcmd = "SELECT * FROM Place ";
+            var Movies = _testBase.Execute<Movie>(sqlcmd, new Movie());
 
-            var Cinemas = insertcmd.Execute<Cinema>(sqlcmd, new Cinema());
+            sqlcmd = "SELECT * FROM Place ";
+            var Cinemas = _testBase.Execute<Cinema>(sqlcmd, new Cinema());
 
             ViewBag.Movies = new SelectList(Movies, "ID", "Name");
             ViewBag.Cinemas = new SelectList(Cinemas, "ID", "Name");
@@ -82,10 +78,12 @@ namespace TestTaskApp.Controllers
         public IActionResult Post([Bind("MovieID, CinemaID, ScheduleDate, SessionTime")] PostSchedule schedule)
         {
             PostSchedule schedule1 = schedule;
+            List<PostSchedule> indatabase = new List<PostSchedule>();
+            sqlcmd = "INSERT INTO Session VALUES (@MovieID, @CinemaID, @ScheduleDate)";
+
             var time = schedule1.SessionTime.Split(' ');
             var dateTime = time.Select(x => DateTime.Parse(x));
-
-            List<PostSchedule> indatabase = new List<PostSchedule>();
+            
             foreach(var date in dateTime)
             {
                 indatabase.Add(new PostSchedule()
@@ -95,12 +93,10 @@ namespace TestTaskApp.Controllers
                     ScheduleDate = schedule1.ScheduleDate.AddHours(date.Hour).AddMinutes(date.Minute)
                 });
             }
-
-            sqlcmd = "INSERT INTO Session VALUES (@MovieID, @CinemaID, @ScheduleDate) ";
-            var insertcmd = new Insert(_testBase);
+        
             foreach (var item in indatabase)
             {
-                insertcmd.Execute<PostSchedule>(sqlcmd, item);
+                _testBase.Execute<PostSchedule>(sqlcmd, item);
             }
 
             return RedirectToAction(nameof(Index));
@@ -109,8 +105,7 @@ namespace TestTaskApp.Controllers
         public IActionResult Delete(int id)
         {
             sqlcmd = $"Delete from Session where SessionID = {id}";
-            var cmd = new Insert(_testBase);
-            cmd.Execute<Schedule>(sqlcmd, new Schedule());
+            _testBase.Execute<Schedule>(sqlcmd, new Schedule());
             return RedirectToAction(nameof(Index));
         }
 

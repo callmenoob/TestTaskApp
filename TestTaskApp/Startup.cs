@@ -36,7 +36,7 @@ namespace TestTaskApp
 
             services.AddScoped<ITestBase, TestBase>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddScoped<ICommand, Insert>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
