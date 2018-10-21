@@ -5,21 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Schedule\Create.cshtml" />
-    <Content Remove="Views\Schedule\Edit.cshtml" />
-    <Content Remove="Views\Schedule\Index.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ApplicationDefinition Include="Views\Schedule\Edit.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Views\Schedule\Create.cshtml" />
-    <None Include="Views\Schedule\Index.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Dapper" Version="1.50.5" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />

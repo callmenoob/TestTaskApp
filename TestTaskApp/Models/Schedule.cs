@@ -9,6 +9,7 @@ namespace TestTaskApp.Models
     public class Schedule
     {
         public int SessionID { get; set; }
+        public DateTime SessionTime { get; set; }
         public string MovieName { get; set; }
         public string CinemaName { get; set; }
         

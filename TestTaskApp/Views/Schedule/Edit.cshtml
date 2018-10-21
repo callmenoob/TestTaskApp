@@ -13,9 +13,23 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ScheduleDate" class="control-label"></label>
-                <input asp-for="ScheduleDate" class="form-control" />
-                <span asp-validation-for="ScheduleDate" class="text-danger"></span>
+                <label asp-for="SessionID" class="control-label"></label>
+                <input asp-for="SessionID" class="form-control" disabled />
+                <span asp-validation-for="SessionID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SessionTime" class="control-label"></label>
+                <input asp-for="SessionTime" class="form-control" />
+                <span asp-validation-for="SessionTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MovieName" class="control-label"></label>
+                <select asp-for="MovieName" asp-items="@ViewBag.Movies"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CinemaName" class="control-label"></label>
+                <select asp-for="CinemaName" asp-items="@ViewBag.Cinemas">
+</select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />

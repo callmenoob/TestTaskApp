@@ -1,4 +1,4 @@
-﻿@model TestTaskApp.Models.Schedule
+﻿@model IEnumerable<TestTaskApp.Models.Schedule>
 
 @{
     ViewData["Title"] = "Index";
@@ -6,19 +6,41 @@
 
 <h2>Index</h2>
 
-<div>
-    <h4>Schedule</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ScheduleDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ScheduleDate)
-        </dd>
-    </dl>
-</div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
+<p>
+    <a asp-action="Post">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SessionTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MovieName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CinemaName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SessionTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MovieName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CinemaName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.SessionID">Edit</a>
+                <a asp-action="Delete" asp-route-id="@item.SessionID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

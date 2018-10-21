@@ -1,0 +1,36 @@
+﻿@model TestTaskApp.Models.PostSchedule
+
+@{
+    ViewData["Title"] = "PostSchedule";
+}
+
+<h2>PostSchedule</h2>
+
+<h4>PostSchedule</h4>
+<hr />
+<form method="post">
+    <div class="row">
+        <div class="form-group">
+            <label asp-for="MovieID" class="col-md-2 control-label"></label>
+            <select asp-for="MovieID" asp-items="@ViewBag.Movies"></select>
+        </div>
+        <div class="form-group">
+            <label asp-for="CinemaID" class="col-md-2 control-label"></label>
+            <select asp-for="CinemaID" asp-items="@ViewBag.Cinemas"></select>
+        </div>
+        <div class="form-group">
+            <label asp-for="ScheduleDate" class="col-md-2 control-label"></label>
+            <input asp-for="ScheduleDate" type="date" />
+        </div>
+        <div class="form-group">
+            <label asp-for="SessionTime" class="col-md-2 control-label"></label>
+            <input asp-for="SessionTime" type="text" />
+        </div>
+        <br />
+        <input type="submit" value="Создать" />
+    </div>
+</form>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

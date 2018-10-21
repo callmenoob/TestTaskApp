@@ -60,7 +60,7 @@ namespace TestTaskApp
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Movies}/{action=Index}/{id?}");
+                    template: "{controller=Schedule}/{action=Index}/{id?}");
             });
         }
     }
